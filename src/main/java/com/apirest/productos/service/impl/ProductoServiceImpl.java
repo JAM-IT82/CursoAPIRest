@@ -2,10 +2,14 @@ package com.apirest.productos.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.apirest.productos.DTO.ProductoDTOConverter;
+import com.apirest.productos.DTO.SalidaProductoDTO;
 import com.apirest.productos.entity.Producto;
 import com.apirest.productos.repository.ProductoRepository;
 import com.apirest.productos.services.ProductoService;
@@ -17,6 +21,7 @@ import lombok.AllArgsConstructor;
 public class ProductoServiceImpl implements ProductoService{
 	
 	public final ProductoRepository oProdRepository;
+	public final ProductoDTOConverter oProdConvert;
 	
 	
 
@@ -30,6 +35,7 @@ public class ProductoServiceImpl implements ProductoService{
 		}
 		else {
 			return ResponseEntity.notFound().build();
+		
 		}
 				
 	}
@@ -51,14 +57,19 @@ public class ProductoServiceImpl implements ProductoService{
 	}
 	
 	@Override
-	public ResponseEntity<List<Producto>> getProductos() {
+	/*public ResponseEntity<List<Producto>> getProductos() {*/
+	public ResponseEntity<?> getProductos (){
 		
 		List <Producto> lProductos = oProdRepository.findAll();
 		if (lProductos.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 		else {
-			return ResponseEntity.ok().body(lProductos);
+			//return ResponseEntity.ok().body(lProductos);
+			List <SalidaProductoDTO> dtoList = 
+					lProductos.stream()
+					.map(oProdConvert::convertToSalidaDTO).collect(Collectors.toList());
+			return ResponseEntity.ok().body(dtoList);
 		}
 	}
 	

@@ -9,7 +9,7 @@ import com.apirest.productos.entity.*;
 
 public interface ProductoService {
 
-	ResponseEntity <List<Producto>> getProductos();
+	ResponseEntity <?> getProductos();
 	ResponseEntity <Producto> getProductoById (Long id);
 	ResponseEntity <Producto> removeProductoById (Long id);
 	ResponseEntity <Producto> updateProducto (Producto oProducto);

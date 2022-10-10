@@ -21,7 +21,7 @@ public class ProductoController {
 	private final ProductoService prodServ;
 
 	@GetMapping("/get-productos")
-	ResponseEntity<List <Producto>> getProductos () {
+	ResponseEntity<?> getProductos () {
 		return prodServ.getProductos();
 	}
 	

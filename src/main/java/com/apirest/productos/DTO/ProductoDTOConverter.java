@@ -16,4 +16,8 @@ public class ProductoDTOConverter {
 	public EntradaProductoDTO convertToEntradaDTO (Producto oProduco) {
 		return oModelMapper.map(oProduco, EntradaProductoDTO.class);
 	}
+	
+	public SalidaProductoDTO convertToSalidaDTO (Producto oProducto) {
+		return oModelMapper.map(oProducto, SalidaProductoDTO.class);
+	}
 }
